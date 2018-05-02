@@ -10,10 +10,10 @@ else {
 }
 $username = getuserfield('username');
 $query = "Select * from `messages` where `to` = '$username' and `from` Like '%$fromm%' or `from` = '$username' and `to` Like '%$fromm%'";
-$query_run=mysqli_query($mysqli,$query);
+$query_run=mysql_query($query);
 if($_SERVER['SCRIPT_NAME']!='/phpfiles/mainpagelio.php')
 {
-while($data = mysqli_fetch_row($query_run))
+while($data = mysql_fetch_row($query_run))
 {
   if($data[3]==$username)
   {

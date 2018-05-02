@@ -20,9 +20,9 @@ function loggedin()
 function getuserfield($field)
 {
   $query="SELECT `$field` FROM `users` WHERE `id`='".$_SESSION['user_id']."'";
-  if($query_run=mysqli_query($mysqli,$query))
+  if($query_run=mysql_query($query))
   {
-    return mysqli_result($query_run,0,$field);
+    return mysql_result($query_run,0,$field);
   }
 }
  ?>

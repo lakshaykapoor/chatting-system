@@ -12,15 +12,15 @@ $fields=0;
 $script;
 if(isset($_POST['username'])&&isset($_POST['password']))
 {
-  $username=mysqli_real_escape_string($mysqli,$_POST['username']);
-  $password=mysqli_real_escape_string($mysqli,$_POST['password']);
+  $username=mysql_real_escape_string($_POST['username']);
+  $password=mysql_real_escape_string($_POST['password']);
   $password_hash=md5($password);
   if(!empty($username)&&!empty($password))
   {
     $query="SELECT `id` FROM `users` Where `username`='$username' && `password`='$password_hash'";
-    if($query_run=mysqli_query($mysqli,$query))
+    if($query_run=mysql_query($query))
     {
-      $query_row=mysqli_num_rows($query_run);
+      $query_row=mysql_num_rows($query_run);
       if($query_row==0)
       {
         /*echo 'Wrong Username or Password.';*/
@@ -28,7 +28,7 @@ if(isset($_POST['username'])&&isset($_POST['password']))
       }
       else if($query_row==1)
       {
-        $user_id=mysqli_result($query_run , 0 , 'id');
+        $user_id=mysql_result($query_run , 0 , 'id');
         $_SESSION['user_id']=$user_id;
         header('Location: mainpagelio.php');
       }

@@ -5,11 +5,11 @@ $notpass = 0;
 $fillall = 0;
 if(isset($_POST['username'])&&isset($_POST['password'])&&isset($_POST['confirm_password'])&&isset($_POST['firstname'])&&isset($_POST['lastname']))
 {
-  $username=mysqli_real_escape_string($mysqli,$_POST['username']);
-  $password=mysqli_real_escape_string($mysqli,$_POST['password']);
-  $confirmpassword=mysqli_real_escape_string($mysqli,$_POST['confirm_password']);
-  $firstname=mysqli_real_escape_string($mysqli,$_POST['firstname']);
-  $lastname=mysqli_real_escape_string($mysqli,$_POST['lastname']);
+  $username=mysql_real_escape_string($_POST['username']);
+  $password=mysql_real_escape_string($_POST['password']);
+  $confirmpassword=mysql_real_escape_string($_POST['confirm_password']);
+  $firstname=mysql_real_escape_string($_POST['firstname']);
+  $lastname=mysql_real_escape_string($_POST['lastname']);
   $password_hash=md5($password);
   if(strlen($username)>30||strlen($firstname)>30||strlen($lastname)>30)
   {
@@ -25,13 +25,13 @@ if(isset($_POST['username'])&&isset($_POST['password'])&&isset($_POST['confirm_p
     }
     else {
       $query="SELECT `username` FROM `users` WHERE `username`= '$username'";
-      if($query_run=mysqli_query($mysqli,$query))
+      if($query_run=mysql_query($query))
       {
-        $query_row=mysqli_num_rows($query_run);
+        $query_row=mysql_num_rows($query_run);
         if($query_row==0)
         {
           $query1="INSERT INTO `users` VALUES('','$username','$password_hash','$firstname','$lastname',0)";
-          if($query1_run=mysqli_query($mysqli,$query1))
+          if($query1_run=mysql_query($query1))
           {
             echo 'Registered Successfully';
           }

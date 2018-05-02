@@ -3,6 +3,8 @@ $host='localhost';
 $username1='root';
 $pass='';
 $database='practicedatabase';
-
-$mysqli = new mysqli($host, $username1, $pass, $database);
+if(!mysql_connect($host,$username1,$pass)||!mysql_select_db($database))
+{
+  die(mysql_error());
+}
  ?>
