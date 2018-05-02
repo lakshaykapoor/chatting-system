@@ -1,0 +1,48 @@
+function processUpdate(x)
+{
+    $.ajax({    //create an ajax request to load_page.php
+      type: "GET",
+      url: "getmessage.php",
+      dataType: "html",   //expect html to be returned
+      success: function(response){
+        //processUpdate1();
+        if(response[0]!='0'||x==0)
+        {
+          $("#output").html(response.substr(1,response.length));
+          $("#output").scrollTop($("#output")[0].scrollHeight);
+        }
+          //alert(response);
+      }
+    });
+}
+/*function processUpdate1()
+{
+    $.ajax({    //create an ajax request to load_page.php
+      type: "GET",
+      url: "storemessage.php",
+      dataType: "html",   //expect html to be returned
+      success: function(response){
+        console.log(response[0]);
+        if(response[0]=='0')
+        {
+          $("#output1").html("Please specfiy a valid username in \"to\" field.");
+        }
+          //alert(response);
+      }
+    });
+}*/
+var serverPoll;
+$checkupdate = function()
+{
+  var x='0';
+   serverPoll = setInterval(
+    function(){processUpdate(x);},1000);
+    x=x+1;
+}
+$(document).ready(function() {
+   //$("#message").click(function() {
+   processUpdate('0');
+   $checkupdate();
+
+//});
+});

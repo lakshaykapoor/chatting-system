@@ -1,0 +1,52 @@
+$(document).ready(function() {
+  $(window).load(function()
+{
+  var $frame = $('#output3').contents();
+  $frame.scrollTop($frame.height());
+});
+processUpdate('0');
+$checkupdate();
+});
+function processUpdate(x)
+{
+    $.ajax({    //create an ajax request to load_page.php
+      type: "GET",
+      url: "getmessage1.php",
+      dataType: "html",   //expect html to be returned
+      success: function(response){
+        //processUpdate1();
+        console.log(response[0]);
+        if(response[0]!='0'||x==0)
+        {
+          reloadIFrame();
+          if(x!=0)
+          {
+            var $el = $("#output3"),
+              x1 = 1000,
+              originalColor = $el.css("background");
+
+          $el.css("background", "rgba(0,255,0,.3)");
+          setTimeout(function(){
+            $el.css("background", originalColor);
+          }, x1);
+          }
+        }
+          //alert(response);
+      }
+    });
+}
+
+var serverPoll;
+$checkupdate = function()
+{
+  var x='0';
+   serverPoll = setInterval(
+    function(){processUpdate(x);},1000);
+    x=x+1;
+}
+function reloadIFrame() {
+  document.getElementById('output3').contentWindow.location.reload(true);
+  //document.getElementById("output3").src="getmessage.php";
+  //$("#output3").scrollTop($("#output3")[0].scrollHeight);
+  //$frame.scrollTop($frame.height());
+}
